@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 60875628f7c5cc64b96a1c52b719375d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 
+  assetPath: Assets/XR/Settings/OpenXR Editor Settings.asset
+  uploadId: 0
