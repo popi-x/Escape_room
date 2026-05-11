@@ -104,3 +104,7 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Unity Version Control (Plastic SCM) - ignore if using Git
+.plastic/
+plastic.selector
