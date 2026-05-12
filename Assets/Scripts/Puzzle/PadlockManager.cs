@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using EscapeRoom.UI;
 
-
 public class PadlockManager : MonoBehaviour
 {
     public enum InputMode { Trigger, Hover }
@@ -107,9 +106,8 @@ public class PadlockManager : MonoBehaviour
             statusText.color = Color.green;
             PlayOneShot(successClip);
             OpenDoor();
-            // Change PuzzleMarker state to Unlocked
             if (puzzleMarker != null)
-            puzzleMarker.SetState(puzzleStateOnOpen);
+                puzzleMarker.SetState(puzzleStateOnOpen);
         }
         else
         {
