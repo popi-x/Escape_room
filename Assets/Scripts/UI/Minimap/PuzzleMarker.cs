@@ -1,23 +1,40 @@
 using UnityEngine;
+using EscapeRoom.UI;
 
+[AddComponentMenu("Escape Room/Markers/Puzzle Marker")]
+[DisallowMultipleComponent]
 public class PuzzleMarker : MonoBehaviour
 {
-    // markerState {undiscovered, locked, unlocked}
-    [SerializeField] private GameObject locked;
-    [SerializeField] private GameObject unlocked;
+    [SerializeField] private string markerId;
     [SerializeField] private Transform markerCenter;
 
-    public enum puzzleState {undiscovered, locked, unlocked};
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private PuzzleMarkerState currentState = PuzzleMarkerState.Undiscovered;
+
+    private void OnValidate()
     {
-        
+        if (string.IsNullOrWhiteSpace(markerId))
+            markerId = gameObject.name;
+
+#if UNITY_EDITOR
+        if (Application.isPlaying && MarkerManager.Instance != null)
+        {
+            Vector3 pos = markerCenter != null ? markerCenter.position : transform.position;
+            MarkerManager.Instance.SetPuzzleState(markerId, pos, currentState);
+        }
+#endif
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (string.IsNullOrWhiteSpace(markerId))
+            markerId = gameObject.name;
+    }
+
+    public void SetState(PuzzleMarkerState newState)
+    {
+        if (newState == currentState || MarkerManager.Instance == null) return;
+        currentState = newState;
+        Vector3 pos = markerCenter != null ? markerCenter.position : transform.position;
+        MarkerManager.Instance.SetPuzzleState(markerId, pos, currentState);
     }
 }

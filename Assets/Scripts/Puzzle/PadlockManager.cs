@@ -13,6 +13,13 @@ public class PadlockManager : MonoBehaviour
     public string unlockCode = "1234";
     public InputMode inputMode = InputMode.Trigger;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip buttonPressClip;
+    public AudioClip successClip;
+    public AudioClip failureClip;
+    [Range(0f, 1f)] public float audioVolume = 1f;
+
     private string currentInput = "";
 
     // Called by each digit button
@@ -58,15 +65,42 @@ public class PadlockManager : MonoBehaviour
         {
             statusText.text = "UNLOCKED!";
             statusText.color = Color.green;
+            PlayOneShot(successClip);
             // Trigger unlock animation here if needed
         }
         else
         {
             statusText.text = "WRONG CODE";
             statusText.color = Color.red;
+            PlayOneShot(failureClip);
             // Clear after short delay
             Invoke(nameof(OnClearPressed), 1f);
         }
+    }
+
+    public void PlayButtonPressSound()
+    {
+        PlayOneShot(buttonPressClip);
+    }
+
+    void PlayOneShot(AudioClip clip)
+    {
+        if (clip == null) return;
+
+        EnsureAudioSource();
+
+        audioSource.PlayOneShot(clip, audioVolume);
+    }
+
+    void EnsureAudioSource()
+    {
+        if (audioSource != null) return;
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
     }
 
     void UpdateDisplay()
@@ -82,6 +116,8 @@ public class PadlockManager : MonoBehaviour
 
     void Start()
     {
+        EnsureAudioSource();
+
         UpdateDisplay();
         statusText.text = "";
     }

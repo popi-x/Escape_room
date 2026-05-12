@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Anchor
   - Time Boundary
+  - Key
   - Wire
   layers:
   - Default

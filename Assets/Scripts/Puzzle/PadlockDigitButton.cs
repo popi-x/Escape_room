@@ -43,6 +43,7 @@ public class PadlockDigitButton : MonoBehaviour
         // Log EVERYTHING that enters — remove filter temporarily
         // Debug.Log($"[DigitButton] Hovered by:  interactors");
         // if (!IsController()) return;
+        padlock.PlayButtonPressSound();
         padlock.OnDigitPressed(digit);
         rend.material.color = pressedColor;
         Invoke(nameof(ResetColor), 0.2f);
