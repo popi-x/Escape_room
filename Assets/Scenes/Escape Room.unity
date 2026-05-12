@@ -2828,8 +2828,19 @@ MonoBehaviour:
   feedbackUI: {fileID: 0}
   kind: 0
   title: Tutorial
-  message: 'Teleport: Push right joystick forward'
-  duration: 3
+  message: 'You are trapped in a unknown room...
+
+    Find yourself a way out before
+    running out of time!!!!'
+  additionalMessages:
+  - 'Teleport: Push right joystick forward;
+
+    Trigger: Interactions; '
+  - 'Grip: Grab items;
+
+    X to Inspect Object and Mark on Map '
+  duration: 3.5
+  pageGapSeconds: 0.3
   showOnEnable: 0
 --- !u!1001 &593778454
 PrefabInstance:
@@ -5501,6 +5512,91 @@ CapsuleCollider:
   m_Height: 1.2131988
   m_Direction: 1
   m_Center: {x: -0.45149842, y: 0.10659386, z: -0.0106654465}
+--- !u!1 &986335471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 986335472}
+  - component: {fileID: 986335474}
+  - component: {fileID: 986335473}
+  m_Layer: 0
+  m_Name: WireGameZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &986335472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986335471}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.41, y: 0, z: -2.618}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1463514644}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986335473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986335471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b0ad7d9a0642baab29e591c79a72dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EscapeRoom.UI.LookHintPrompt
+  feedbackUI: {fileID: 0}
+  head: {fileID: 1604457105}
+  playerRoot: {fileID: 1604457106}
+  lookTarget: {fileID: 1446431971}
+  rangeCollider: {fileID: 986335474}
+  ignoreRangeHeight: 1
+  maxLookAngle: 55
+  lookHoldSeconds: 2
+  kind: 0
+  title: Hint
+  message: Use Grip on your controller to manupilate the key attached on wire without
+    buzz the wire.
+  duration: 4
+  repeatDelay: 8
+  showOnlyOnce: 1
+  shown:
+    m_PersistentCalls:
+      m_Calls: []
+  debugLog: 0
+--- !u!65 &986335474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986335471}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5330579, y: 1.7812515, z: 1.9498854}
+  m_Center: {x: -0.18010366, y: 0.81203085, z: -0.07311702}
 --- !u!1 &993339080
 GameObject:
   m_ObjectHideFlags: 0
@@ -7921,6 +8017,38 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1463514643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1463514644}
+  m_Layer: 0
+  m_Name: HintZones
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1463514644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463514643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 986335472}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1467196541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12526,3 +12654,4 @@ SceneRoots:
   - {fileID: 533781664}
   - {fileID: 310187715}
   - {fileID: 304999022}
+  - {fileID: 1463514644}
