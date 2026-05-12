@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using EscapeRoom.UI;
 
 public class GameSuccessController : MonoBehaviour
 {
@@ -21,6 +22,12 @@ public class GameSuccessController : MonoBehaviour
 
     private void Restart()
     {
+        if (GameSessionController.Instance != null)
+        {
+            GameSessionController.Instance.RestartToInitialMenu();
+            return;
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

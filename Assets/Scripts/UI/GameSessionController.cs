@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using EscapeRoom.Progression;
 using EscapeRoom.Rooms;
 using UnityEngine;
@@ -164,6 +165,103 @@ namespace EscapeRoom.UI
                 timer.ResetTimer();
                 timer.StopTimer();
             }
+        }
+
+        public void RestartToInitialMenu()
+        {
+            ResolveReferences();
+
+            if (endRoutine != null)
+            {
+                StopCoroutine(endRoutine);
+                endRoutine = null;
+            }
+
+            gameActive = false;
+            designerModeActive = false;
+
+            if (ProgressState.Instance != null)
+            {
+                ProgressState.Instance.ResetToInitialFlags();
+            }
+
+            if (designerModeController != null)
+            {
+                designerModeController.EndDesignerMode();
+            }
+
+            if (timer != null)
+            {
+                timer.ResetTimer();
+                timer.StopTimer();
+            }
+
+            if (feedbackUI != null)
+            {
+                feedbackUI.Hide();
+                feedbackUI.ClearTimer();
+            }
+
+            Scene activeScene = SceneManager.GetActiveScene();
+            if (activeScene.IsValid())
+            {
+                string sceneName = activeScene.name;
+                DestroyPersistentSingletonsForRestart();
+                SceneManager.LoadScene(sceneName);
+                return;
+            }
+
+            ShowMenuAfterReset();
+        }
+
+        private void DestroyPersistentSingletonsForRestart()
+        {
+            List<GameObject> objectsToDestroy = new List<GameObject>();
+
+            if (FeedbackUIController.Instance != null)
+            {
+                AddUniqueObject(objectsToDestroy, FeedbackUIController.Instance.gameObject);
+            }
+
+            if (ProgressState.Instance != null)
+            {
+                AddUniqueObject(objectsToDestroy, ProgressState.Instance.gameObject);
+            }
+
+            if (RoomFlowController.Instance != null)
+            {
+                AddUniqueObject(objectsToDestroy, RoomFlowController.Instance.gameObject);
+            }
+
+            objectsToDestroy.Remove(gameObject);
+            AddUniqueObject(objectsToDestroy, gameObject);
+
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+
+            for (int i = 0; i < objectsToDestroy.Count; i++)
+            {
+                GameObject target = objectsToDestroy[i];
+                if (target == null)
+                {
+                    continue;
+                }
+
+                DestroyImmediate(target);
+            }
+        }
+
+        private static void AddUniqueObject(List<GameObject> objects, GameObject target)
+        {
+            if (target == null || objects.Contains(target))
+            {
+                return;
+            }
+
+            objects.Add(target);
         }
 
         public void CompleteGame()

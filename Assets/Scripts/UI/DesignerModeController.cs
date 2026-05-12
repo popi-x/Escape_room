@@ -106,8 +106,7 @@ namespace EscapeRoom.UI
         public void BeginDesignerMode()
         {
             designerModeActive = true;
-            int elementCount = elements != null ? elements.Length : 0;
-            currentIndex = Mathf.Clamp(currentIndex, 0, Mathf.Max(0, elementCount - 1));
+            currentIndex = 0;
             EnableInspectAction();
             ApplyCurrentHighlight();
 

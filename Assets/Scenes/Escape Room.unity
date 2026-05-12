@@ -7977,6 +7977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1462193268}
   - component: {fileID: 1462193269}
+  - component: {fileID: 1462193270}
   m_Layer: 6
   m_Name: PromptRange
   m_TagString: Untagged
@@ -8020,6 +8021,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1462193270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462193267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b0ad7d9a0642baab29e591c79a72dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EscapeRoom.UI.LookHintPrompt
+  feedbackUI: {fileID: 0}
+  head: {fileID: 1604457105}
+  playerRoot: {fileID: 1604457106}
+  lookTarget: {fileID: 1462193268}
+  rangeCollider: {fileID: 1462193269}
+  ignoreRangeHeight: 1
+  maxLookAngle: 55
+  lookHoldSeconds: 2.5
+  kind: 0
+  title: Padlock Hint
+  message: Use trigger to enter the password
+  duration: 3
+  repeatDelay: 8
+  showOnlyOnce: 1
+  shown:
+    m_PersistentCalls:
+      m_Calls: []
+  debugLog: 0
 --- !u!1 &1463514643
 GameObject:
   m_ObjectHideFlags: 0
