@@ -151,6 +151,11 @@ namespace EscapeRoom.Rooms
                 return;
             }
 
+            if (EscapeRoom.UI.GameSessionController.Instance != null && EscapeRoom.UI.GameSessionController.Instance.IsDesignerModeActive)
+            {
+                return;
+            }
+
             if (RoomFlowController.Instance == null)
             {
                 Debug.LogWarning("RoomPortal: RoomFlowController was not found.");

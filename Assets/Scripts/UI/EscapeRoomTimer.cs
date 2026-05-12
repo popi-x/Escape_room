@@ -36,6 +36,7 @@ namespace EscapeRoom.UI
         private bool isRunning;
         private bool warningTriggered;
         private bool expiredTriggered;
+        private string displayOverride;
 
         public float CurrentSeconds => currentSeconds;
         public bool IsRunning => isRunning;
@@ -83,6 +84,7 @@ namespace EscapeRoom.UI
 
         public void StartTimer()
         {
+            displayOverride = null;
             isRunning = true;
             expiredTriggered = false;
             RefreshDisplay();
@@ -113,6 +115,7 @@ namespace EscapeRoom.UI
 
         public void ResetTimer()
         {
+            displayOverride = null;
             currentSeconds = Mathf.Max(0f, startingSeconds);
             warningTriggered = false;
             expiredTriggered = false;
@@ -121,7 +124,17 @@ namespace EscapeRoom.UI
 
         public void SetSeconds(float seconds)
         {
+            displayOverride = null;
             currentSeconds = Mathf.Max(0f, seconds);
+            warningTriggered = false;
+            expiredTriggered = false;
+            RefreshDisplay();
+        }
+
+        public void ShowUnlimited(string text = "Time Unlimited")
+        {
+            displayOverride = string.IsNullOrWhiteSpace(text) ? "Time Unlimited" : text;
+            isRunning = false;
             warningTriggered = false;
             expiredTriggered = false;
             RefreshDisplay();
@@ -181,11 +194,12 @@ namespace EscapeRoom.UI
 
         private void RefreshDisplay()
         {
-            string text = BuildDisplayText();
+            string text = !string.IsNullOrWhiteSpace(displayOverride) ? displayOverride : BuildDisplayText();
+            bool forceShow = !string.IsNullOrWhiteSpace(displayOverride);
 
             if (timerText != null || legacyTimerText != null)
             {
-                bool show = !hideDisplayWhenStopped || isRunning;
+                bool show = forceShow || !hideDisplayWhenStopped || isRunning;
                 if (timerText != null)
                 {
                     timerText.text = text;
@@ -207,7 +221,7 @@ namespace EscapeRoom.UI
                 return;
             }
 
-            if (hideDisplayWhenStopped && !isRunning)
+            if (hideDisplayWhenStopped && !isRunning && !forceShow)
             {
                 target.ClearTimer();
             }

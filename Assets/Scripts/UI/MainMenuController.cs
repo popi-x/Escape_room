@@ -47,6 +47,14 @@ namespace EscapeRoom.UI
 
         public void OpenDesignerMode()
         {
+            GameSessionController session = ResolveGameSessionController();
+            if (session != null)
+            {
+                session.StartDesignerMode();
+                SetMenuVisible(false);
+                return;
+            }
+
             FeedbackUIController feedback = ResolveFeedbackUI();
             if (feedback != null)
             {

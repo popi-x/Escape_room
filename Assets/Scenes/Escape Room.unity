@@ -1964,6 +1964,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1446431971}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &428659018 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2449787133337329425, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1604457102}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &429226388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2397,11 @@ MonoBehaviour:
   m_StartingInteractionStrengthFilters: []
   m_AutoFindParentInteractableInHierarchy: 0
   m_ParentInteractableObject: {fileID: 0}
+--- !u!1 &489995007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 667934523523366372, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
+  m_PrefabInstance: {fileID: 3427549372672240916}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &492026304
 GameObject:
   m_ObjectHideFlags: 0
@@ -4855,6 +4871,7 @@ GameObject:
   - component: {fileID: 899385513}
   - component: {fileID: 899385512}
   - component: {fileID: 899385519}
+  - component: {fileID: 899385520}
   m_Layer: 0
   m_Name: GameSystems
   m_TagString: Untagged
@@ -5055,14 +5072,79 @@ MonoBehaviour:
   resetProgressOnGameEnd: 1
   reloadActiveSceneOnEnd: 1
   resultPopupSeconds: 2.5
+  designerTimerText: Time Unlimited
   timer: {fileID: 899385512}
   mainMenu: {fileID: 251672756}
   feedbackUI: {fileID: 899385513}
   roomFlowController: {fileID: 899385517}
+  designerModeController: {fileID: 0}
   failedTitle: Game Failed
   failedBody: Time is up.
   successTitle: Success
   successBody: You escaped.
+--- !u!114 &899385520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899385511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee279f58ed5805e4f8f96932fd2c605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EscapeRoom.UI.DesignerModeController
+  inspectAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Inspect
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 084b1d14-7a90-4fb6-a6fc-83849af7b9c5
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  rayInteractor: {fileID: 428659018}
+  fallbackRayOrigin: {fileID: 1604457105}
+  fallbackRayDistance: 12
+  fallbackRayMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  triggerInteraction: 1
+  elements:
+  - target: {fileID: 1747690563}
+    title: Last Digit
+    hint: 8
+  - target: {fileID: 1078376317}
+    title: Door to Future
+    hint: Input all correct code to padlock to unlock
+  - target: {fileID: 1446431970}
+    title: Buzz Wire Hint
+    hint: 'no need to go through wire
+
+      drap key down and place it to the end
+      of wire to win '
+  - target: {fileID: 304999021}
+    title: Key Hint
+    hint: 'bring key back to past room '
+  - target: {fileID: 489995007}
+    title: Chest Hint
+    hint: 'bring and place future here to here to win '
+  advanceAfterInspect: 1
+  loopAfterLastElement: 0
+  introTitle: Designer Mode
+  introMessage: Point to and press B to get clue from the highlighted object.
+  introDuration: 3
+  feedbackUI: {fileID: 899385513}
+  hintKind: 0
+  hintDuration: 3
+  highlightColor: {r: 1, g: 0.48, b: 0.05, a: 1}
+  includeChildRenderers: 1
+  useEmission: 1
+  emissionIntensity: 1.2
+  debugLogRayHits: 1
 --- !u!64 &902921184
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9840,6 +9922,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8339000890862115960, guid: 6d3e2f52eea84d64e80bb69c08bdc0b4, type: 3}
   m_PrefabInstance: {fileID: 1747690561}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1747690563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7167775123031460379, guid: 6d3e2f52eea84d64e80bb69c08bdc0b4, type: 3}
+  m_PrefabInstance: {fileID: 1747690561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1765470453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11490,6 +11577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 667934523523366372, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2318731526777325141, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.6314399
@@ -11538,6 +11629,14 @@ PrefabInstance:
       propertyPath: successUI
       value: 
       objectReference: {fileID: 60077766}
+    - target: {fileID: 6069143851594313294, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769350628946052192, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

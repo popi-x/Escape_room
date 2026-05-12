@@ -57,6 +57,11 @@ public class PuzzleTrigger : MonoBehaviour
 
     private void HandleEnter(Collider other)
     {
+        if (GameSessionController.Instance != null && GameSessionController.Instance.IsDesignerModeActive)
+        {
+            return;
+        }
+
         if (!other.CompareTag("GameController") || hasInspected) return;
         playerNearby = true;
         hintUI?.SetActive(true);
@@ -71,6 +76,11 @@ public class PuzzleTrigger : MonoBehaviour
 
     private void OnInspect(InputAction.CallbackContext ctx)
     {
+        if (GameSessionController.Instance != null && GameSessionController.Instance.IsDesignerModeActive)
+        {
+            return;
+        }
+
         if (!playerNearby || hasInspected) return;
 
         hasInspected = true;

@@ -17,12 +17,14 @@ namespace EscapeRoom.UI
         [SerializeField] private bool resetProgressOnGameEnd = true;
         [SerializeField] private bool reloadActiveSceneOnEnd = true;
         [SerializeField] private float resultPopupSeconds = 2.5f;
+        [SerializeField] private string designerTimerText = "Time Unlimited";
 
         [Header("References")]
         [SerializeField] private EscapeRoomTimer timer;
         [SerializeField] private MainMenuController mainMenu;
         [SerializeField] private FeedbackUIController feedbackUI;
         [SerializeField] private RoomFlowController roomFlowController;
+        [SerializeField] private DesignerModeController designerModeController;
 
         [Header("Messages")]
         [SerializeField] private string failedTitle = "Game Failed";
@@ -32,10 +34,12 @@ namespace EscapeRoom.UI
 
         private Coroutine endRoutine;
         private bool gameActive;
+        private bool designerModeActive;
 
         public static GameSessionController Instance { get; private set; }
 
         public bool IsGameActive => gameActive;
+        public bool IsDesignerModeActive => designerModeActive;
         public float GameDurationSeconds => gameDurationSeconds;
 
         private void Awake()
@@ -94,6 +98,12 @@ namespace EscapeRoom.UI
             }
 
             gameActive = true;
+            designerModeActive = false;
+
+            if (designerModeController != null)
+            {
+                designerModeController.EndDesignerMode();
+            }
 
             if (resetProgressOnGameStart && ProgressState.Instance != null)
             {
@@ -108,6 +118,51 @@ namespace EscapeRoom.UI
             if (timer != null)
             {
                 timer.StartTimer(gameDurationSeconds);
+            }
+        }
+
+        public void StartDesignerMode()
+        {
+            ResolveReferences();
+
+            if (endRoutine != null)
+            {
+                StopCoroutine(endRoutine);
+                endRoutine = null;
+            }
+
+            gameActive = false;
+            designerModeActive = true;
+
+            if (feedbackUI != null)
+            {
+                feedbackUI.Hide();
+            }
+
+            if (timer != null)
+            {
+                timer.ShowUnlimited(designerTimerText);
+            }
+
+            if (designerModeController != null)
+            {
+                designerModeController.BeginDesignerMode();
+            }
+        }
+
+        public void EndDesignerMode()
+        {
+            designerModeActive = false;
+
+            if (designerModeController != null)
+            {
+                designerModeController.EndDesignerMode();
+            }
+
+            if (timer != null)
+            {
+                timer.ResetTimer();
+                timer.StopTimer();
             }
         }
 
@@ -137,6 +192,7 @@ namespace EscapeRoom.UI
             }
 
             gameActive = false;
+            designerModeActive = false;
 
             if (endRoutine != null)
             {
@@ -187,6 +243,11 @@ namespace EscapeRoom.UI
                 timer.StopTimer();
             }
 
+            if (designerModeController != null)
+            {
+                designerModeController.EndDesignerMode();
+            }
+
             if (reloadActiveSceneOnEnd)
             {
                 Scene activeScene = SceneManager.GetActiveScene();
@@ -207,7 +268,7 @@ namespace EscapeRoom.UI
 
         private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (endRoutine == null && !gameActive)
+            if (endRoutine == null && !gameActive && !designerModeActive)
             {
                 ResolveReferences();
                 ShowMenuAfterReset();
@@ -254,6 +315,11 @@ namespace EscapeRoom.UI
                 roomFlowController = RoomFlowController.Instance != null
                     ? RoomFlowController.Instance
                     : FindFirstObjectByType<RoomFlowController>();
+            }
+
+            if (designerModeController == null)
+            {
+                designerModeController = FindFirstObjectByType<DesignerModeController>(FindObjectsInactive.Include);
             }
         }
     }
