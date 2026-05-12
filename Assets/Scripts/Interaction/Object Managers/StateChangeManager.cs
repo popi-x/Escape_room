@@ -25,6 +25,8 @@ public class StateChangeManager : MonoBehaviour
 
     private void Start()
     {
+        ResolveMissingReferences();
+
         if (wallTransform == null) return;
         float dot = Vector3.Dot(transform.position - wallTransform.position, PlaneNormal);
         SetState(dot > 0f);
@@ -47,8 +49,30 @@ public class StateChangeManager : MonoBehaviour
     private void SetState(bool future)
     {
         isFuture = future;
-        pastMesh.SetActive(!isFuture);
-        futureMesh.SetActive(isFuture);
+
+        if (pastMesh != null)
+            pastMesh.SetActive(!isFuture);
+
+        if (futureMesh != null)
+            futureMesh.SetActive(isFuture);
+    }
+
+    private void ResolveMissingReferences()
+    {
+        if (pastMesh == null || futureMesh != null) return;
+
+        Transform pastTransform = pastMesh.transform;
+
+        foreach (Transform child in transform)
+        {
+            if (child == pastTransform) continue;
+            if (child.IsChildOf(pastTransform)) continue;
+
+            futureMesh = child.gameObject;
+            return;
+        }
+
+        Debug.LogWarning($"[StateChangeManager] {name} has no futureMesh assigned and no alternate direct child to use.", this);
     }
 
     private void OnDrawGizmosSelected()
