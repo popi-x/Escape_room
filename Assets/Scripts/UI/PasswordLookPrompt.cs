@@ -76,10 +76,13 @@ namespace EscapeRoom.UI
                 return;
             }
 
-            targetUI.Show(FeedbackUIController.FeedbackKind.Info, title, message, duration);
-            Debug.Log($"[PasswordLookPrompt] SHOW title={title}, message={message}", this);
-            lookTimer = 0f;
-            nextShowTime = Time.time + repeatDelay;
+            bool didShow = targetUI.Show(FeedbackUIController.FeedbackKind.Info, title, message, duration);
+            if (didShow)
+            {
+                Debug.Log($"[PasswordLookPrompt] SHOW title={title}, message={message}", this);
+                lookTimer = 0f;
+                nextShowTime = Time.time + repeatDelay;
+            }
         }
 
         private bool IsInsideRange(Vector3 position)
