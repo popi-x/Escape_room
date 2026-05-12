@@ -53,7 +53,9 @@ namespace EscapeRoom.UI
                 feedback.Show(
                     FeedbackUIController.FeedbackKind.Info,
                     "Designer Mode",
-                    designerModeMessage);
+                    designerModeMessage,
+                    -1f,
+                    true);
             }
         }
 
