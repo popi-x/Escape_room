@@ -9,6 +9,7 @@ public class BuzzWireManager : MonoBehaviour
     public GameObject keyPrefab;
     public Transform keySpawnParent;
     public Collider winArea;
+    public GameObject rewardKey;
 
     private GameObject currentKey;
     private bool gameOver = false;
@@ -42,6 +43,19 @@ public class BuzzWireManager : MonoBehaviour
     {
         if (gameOver) return;
         gameOver = true;
+
+        if (currentKey != null)
+        {
+            var interactable = currentKey.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+            if (interactable != null) interactable.enabled = false;
+
+            Destroy(currentKey);
+            currentKey = null;
+        }
+
+        if (rewardKey != null)
+            rewardKey.SetActive(true);
+
         ShowStatus("You win! You have obtained the key.", Color.green);
     }
 
