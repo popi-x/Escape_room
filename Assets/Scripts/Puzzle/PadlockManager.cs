@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using EscapeRoom.UI;
 
 public class PadlockManager : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class PadlockManager : MonoBehaviour
     private Vector3 doorOpenPos;
     private bool doorMoving = false;
 
+    [Header("Marker")]
+    private PuzzleMarker puzzleMarker;
+    [SerializeField] private PuzzleMarkerState puzzleStateOnOpen = PuzzleMarkerState.Unlocked;
+
     void Start()
     {
         EnsureAudioSource();
@@ -42,6 +47,7 @@ public class PadlockManager : MonoBehaviour
             doorClosedPos = door.transform.position;
             doorOpenPos = doorClosedPos + doorOpenOffset;
         }
+        puzzleMarker = GetComponentInChildren<PuzzleMarker>();
     }
 
     void Update()
@@ -100,6 +106,8 @@ public class PadlockManager : MonoBehaviour
             statusText.color = Color.green;
             PlayOneShot(successClip);
             OpenDoor();
+            if (puzzleMarker != null)
+                puzzleMarker.SetState(puzzleStateOnOpen);
         }
         else
         {
