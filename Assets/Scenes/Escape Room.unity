@@ -5067,7 +5067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f337d119e84fd9beb259420483765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EscapeRoom.UI.GameSessionController
-  gameDurationSeconds: 45
+  gameDurationSeconds: 150
   resetProgressOnGameStart: 1
   resetProgressOnGameEnd: 1
   reloadActiveSceneOnEnd: 1
