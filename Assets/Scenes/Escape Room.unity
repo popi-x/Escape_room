@@ -636,7 +636,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132807728}
   m_LocalRotation: {x: -0, y: -0.4620217, z: -0, w: -0.8868687}
-  m_LocalPosition: {x: 0, y: 0, z: 320}
+  m_LocalPosition: {x: 0, y: 0, z: 815}
   m_LocalScale: {x: 214.28568, y: 214.2857, z: 35.714283}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -644,7 +644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -224, y: 264.99997}
+  m_AnchoredPosition: {x: 484, y: 264.99997}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &132807730
@@ -942,6 +942,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7527335492115110199, guid: be73305a0b64a414da3a4ae0f99c4e5a, type: 3}
   m_PrefabInstance: {fileID: 154782497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &169860149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7039447513206000336, guid: 7d60c45244e10c54aa2164b468dede5c, type: 3}
+  m_PrefabInstance: {fileID: 1245928795}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &173541313
 GameObject:
@@ -5394,7 +5399,7 @@ MonoBehaviour:
   - target: {fileID: 1078376317}
     title: Door to Future
     hint: Input all correct code to padlock to unlock
-  - target: {fileID: 1446431970}
+  - target: {fileID: 169860149}
     title: Buzz Wire Hint
     hint: 'no need to go through wire
 
@@ -5402,10 +5407,10 @@ MonoBehaviour:
       of wire to win '
   - target: {fileID: 304999021}
     title: Key Hint
-    hint: 'bring key back to past room '
+    hint: 'bring key back to past room and unlock the chest '
   - target: {fileID: 489995007}
-    title: Chest Hint
-    hint: 'bring and place future here to here to win '
+    title: 
+    hint: ' '
   advanceAfterInspect: 1
   loopAfterLastElement: 0
   introTitle: Designer Mode
@@ -7674,7 +7679,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351940692}
   m_LocalRotation: {x: -0, y: -0.4620217, z: -0, w: -0.8868687}
-  m_LocalPosition: {x: 0, y: 0, z: 320}
+  m_LocalPosition: {x: 0, y: 0, z: 815}
   m_LocalScale: {x: 214.28568, y: 214.2857, z: 35.714283}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -7682,7 +7687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -224, y: 118}
+  m_AnchoredPosition: {x: 484.00006, y: 118}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1351940694
@@ -12772,13 +12777,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8769350628946052192, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7885768141068547999, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 95.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769350628946052192, guid: 640401a902e6d463a8c91b2a1f35843e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
