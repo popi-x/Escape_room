@@ -38,6 +38,7 @@ public class ActionButton : MonoBehaviour
     void Press()
     {
         Debug.Log($"[ActionButton] Press {name}, isBackspace={isBackspace}", this);
+        padlock.PlayButtonPressSound();
         if (isBackspace) padlock.OnBackspacePressed();
         else padlock.OnClearPressed();
 
