@@ -16,16 +16,20 @@ public class ChestController : MonoBehaviour
     [SerializeField] private float openDuration = 1.5f;
     [SerializeField] private PuzzleMarkerState puzzleStateOnInspect = PuzzleMarkerState.Unlocked;
 
-    // [Header("Audio")]
-    // [SerializeField] private AudioSource audioSource;
+    [Header("Audio")]
+    [SerializeField] private AudioClip successSound;
     // [SerializeField] private AudioClip confirmSound;
     // [SerializeField] private AudioClip openingSound;
+
+    [Header("UI")]
+    [SerializeField] private GameObject successUI;
 
     private bool isOpen = false;
 
     private void Awake()
     {
         puzzleMarker = GetComponent<PuzzleMarker>();
+        successUI.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,7 +53,6 @@ public class ChestController : MonoBehaviour
     private IEnumerator OpenLid()
     {
         // yield return new WaitForSeconds(confirmSound.length);
-        // audioSource.PlayOneShot(openingSound);
 
         Quaternion startRot = lidHinge.localRotation;
         Quaternion endRot = Quaternion.Euler(openRotation);
@@ -67,5 +70,7 @@ public class ChestController : MonoBehaviour
             puzzleMarker.SetState(puzzleStateOnInspect);
 
         lidHinge.localRotation = endRot;
+        AudioSource.PlayClipAtPoint(successSound, transform.position);
+        successUI.SetActive(true);
     }
 }
