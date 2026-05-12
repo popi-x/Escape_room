@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace EscapeRoom.UI
@@ -11,8 +12,13 @@ namespace EscapeRoom.UI
         [SerializeField] private string title = string.Empty;
         [TextArea(2, 4)]
         [SerializeField] private string message = "Something happened.";
+        [TextArea(2, 4)]
+        [SerializeField] private string[] additionalMessages = new string[0];
         [SerializeField] private float duration = -1f;
+        [SerializeField] private float pageGapSeconds = 0.2f;
         [SerializeField] private bool showOnEnable = false;
+
+        private Coroutine sequenceRoutine;
 
         private void OnEnable()
         {
@@ -30,7 +36,19 @@ namespace EscapeRoom.UI
                 return;
             }
 
-            target.Show(kind, title, message, duration);
+            if (sequenceRoutine != null)
+            {
+                StopCoroutine(sequenceRoutine);
+                sequenceRoutine = null;
+            }
+
+            if (additionalMessages == null || additionalMessages.Length == 0)
+            {
+                target.Show(kind, title, message, duration);
+                return;
+            }
+
+            sequenceRoutine = StartCoroutine(ShowSequence(target));
         }
 
         public void ShowInfo(string nextMessage)
@@ -91,11 +109,38 @@ namespace EscapeRoom.UI
 
         public void Hide()
         {
+            if (sequenceRoutine != null)
+            {
+                StopCoroutine(sequenceRoutine);
+                sequenceRoutine = null;
+            }
+
             FeedbackUIController target = ResolveFeedbackUI();
             if (target != null)
             {
                 target.Hide();
             }
+        }
+
+        private IEnumerator ShowSequence(FeedbackUIController target)
+        {
+            float pageSeconds = duration > 0f ? duration : 3f;
+
+            target.Show(kind, title, message, pageSeconds);
+            yield return new WaitForSecondsRealtime(pageSeconds + Mathf.Max(0f, pageGapSeconds));
+
+            foreach (string nextMessage in additionalMessages)
+            {
+                if (string.IsNullOrWhiteSpace(nextMessage))
+                {
+                    continue;
+                }
+
+                target.Show(kind, title, nextMessage, pageSeconds);
+                yield return new WaitForSecondsRealtime(pageSeconds + Mathf.Max(0f, pageGapSeconds));
+            }
+
+            sequenceRoutine = null;
         }
 
         private void ShowWithKind(FeedbackUIController.FeedbackKind nextKind, string nextMessage)
