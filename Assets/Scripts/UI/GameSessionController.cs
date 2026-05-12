@@ -161,7 +161,8 @@ namespace EscapeRoom.UI
                     success ? FeedbackUIController.FeedbackKind.Success : FeedbackUIController.FeedbackKind.Error,
                     success ? successTitle : failedTitle,
                     success ? successBody : failedBody,
-                    resultPopupSeconds);
+                    resultPopupSeconds,
+                    true);
             }
 
             if (resultPopupSeconds > 0f)
@@ -224,6 +225,7 @@ namespace EscapeRoom.UI
 
             if (feedbackUI != null)
             {
+                feedbackUI.Hide();
                 feedbackUI.ClearTimer();
             }
         }

@@ -126,7 +126,13 @@ namespace EscapeRoom.UI
         {
             float pageSeconds = duration > 0f ? duration : 3f;
 
-            target.Show(kind, title, message, pageSeconds);
+            bool didShow = target.Show(kind, title, message, pageSeconds);
+            if (!didShow)
+            {
+                sequenceRoutine = null;
+                yield break;
+            }
+
             yield return new WaitForSecondsRealtime(pageSeconds + Mathf.Max(0f, pageGapSeconds));
 
             foreach (string nextMessage in additionalMessages)
@@ -136,7 +142,12 @@ namespace EscapeRoom.UI
                     continue;
                 }
 
-                target.Show(kind, title, nextMessage, pageSeconds);
+                didShow = target.Show(kind, title, nextMessage, pageSeconds);
+                if (!didShow)
+                {
+                    break;
+                }
+
                 yield return new WaitForSecondsRealtime(pageSeconds + Mathf.Max(0f, pageGapSeconds));
             }
 

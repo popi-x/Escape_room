@@ -106,7 +106,12 @@ namespace EscapeRoom.UI
             }
 
             bool isPersistent = duration < 0f;
-            targetUI.Show(kind, title, message, isPersistent ? 0f : duration);
+            bool didShow = targetUI.Show(kind, title, message, isPersistent ? 0f : duration);
+            if (!didShow)
+            {
+                return;
+            }
+
             shown?.Invoke();
             hasShown = true;
             persistentMessageVisible = isPersistent;

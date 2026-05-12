@@ -48,6 +48,7 @@ namespace EscapeRoom.UI
 
         [Header("View")]
         [SerializeField] private FeedbackCanvasMode canvasMode = FeedbackCanvasMode.WorldSpaceFollowHead;
+        [SerializeField] private bool suppressFeedbackWhenGameInactive = true;
         [SerializeField] private Canvas canvas;
         [SerializeField] private RectTransform messageRoot;
         [SerializeField] private CanvasGroup messageCanvasGroup;
@@ -161,11 +162,16 @@ namespace EscapeRoom.UI
             }
         }
 
-        public void Show(FeedbackKind kind, string title, string body, float duration = -1f)
+        public bool Show(FeedbackKind kind, string title, string body, float duration = -1f, bool ignoreGameActive = false)
         {
+            if (!ignoreGameActive && ShouldSuppressForInactiveGame())
+            {
+                return false;
+            }
+
             if (messageCanvasGroup == null)
             {
-                return;
+                return false;
             }
 
             if (messageRoutine != null)
@@ -175,6 +181,7 @@ namespace EscapeRoom.UI
 
             float resolvedDuration = duration < 0f ? defaultDuration : duration;
             messageRoutine = StartCoroutine(ShowMessageRoutine(kind, title, body, resolvedDuration));
+            return true;
         }
 
         public void ShowMessage(string message)
@@ -202,15 +209,15 @@ namespace EscapeRoom.UI
             Show(FeedbackKind.Error, string.Empty, message);
         }
 
-        public void ShowPuzzleSolved()
+        public bool ShowPuzzleSolved()
         {
-            ShowPuzzleSolved("Puzzle");
+            return ShowPuzzleSolved("Puzzle");
         }
 
-        public void ShowPuzzleSolved(string puzzleName)
+        public bool ShowPuzzleSolved(string puzzleName)
         {
             string label = string.IsNullOrWhiteSpace(puzzleName) ? "Puzzle" : puzzleName;
-            Show(FeedbackKind.Success, puzzleSolvedTitle, string.Format(puzzleSolvedBodyFormat, label));
+            return Show(FeedbackKind.Success, puzzleSolvedTitle, string.Format(puzzleSolvedBodyFormat, label));
         }
 
         public void ShowWrongPassword()
@@ -282,6 +289,17 @@ namespace EscapeRoom.UI
             {
                 Instance.Show(kind, title, body, duration);
             }
+        }
+
+        private bool ShouldSuppressForInactiveGame()
+        {
+            if (!suppressFeedbackWhenGameInactive)
+            {
+                return false;
+            }
+
+            GameSessionController session = GameSessionController.Instance;
+            return session != null && !session.IsGameActive;
         }
 
         private IEnumerator ShowMessageRoutine(FeedbackKind kind, string title, string body, float duration)
@@ -489,12 +507,16 @@ namespace EscapeRoom.UI
                 return;
             }
 
-            if (!announcedSolvedFlagGuids.Add(flagGuid))
+            if (announcedSolvedFlagGuids.Contains(flagGuid))
             {
                 return;
             }
 
-            ShowPuzzleSolved(string.IsNullOrWhiteSpace(displayName) ? "Puzzle" : displayName);
+            bool didShow = ShowPuzzleSolved(string.IsNullOrWhiteSpace(displayName) ? "Puzzle" : displayName);
+            if (didShow)
+            {
+                announcedSolvedFlagGuids.Add(flagGuid);
+            }
         }
 
         private void HandleCurrentRoomChanged(RoomSceneInfo roomInfo)
