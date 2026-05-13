@@ -6,7 +6,7 @@
 *   **Date of Submission:** May 12, 2026
 *   **Development Platform(s):** Unity 6.3 LTS
 *   **Mobile Platforms/Devices:** Macbook Air M2 (Mac OS 15.7.3), Macbook Pro M5 (Tahoe 26.3.1), Windows 11
-*   **Video URL:** [Insert Video Link Here]
+*   **Video URL:** https://youtu.be/gVotu8LDLiQ
 
 ## Project Directory Overview
 
@@ -41,8 +41,9 @@ Contains all prefabricated GameObjects organized into subdirectories.
 *   Removed last planned puzzle of holding 2 objects
 
 ### Bugs
-The mini-map marker detection collider sometimes interefere with each other across clues/puzzles. If the player stands in the overlapping area of two different clue detection colliders, inspecting one might trigger markers for both clues to show up on minimap at the same time.
-For the Buzz-the-wire game, the player could technically cheat by sinking the key under the table.
+* The mini-map marker detection collider sometimes interefere with each other across clues/puzzles. If the player stands in the overlapping area of two different clue detection colliders, inspecting one might trigger markers for both clues to show up on minimap at the same time.
+* For the Buzz-the-wire game, the player could technically cheat by sinking the key under the table.
+* When the player ends the flow and continues to play right after, some features and/or puzzle might break. We recommend starting the game fresh everytime for the current version.
 
 ### Asset Sources
 
@@ -57,5 +58,4 @@ For the Buzz-the-wire game, the player could technically cheat by sinking the ke
 *   **Player Icon:** https://assetstore.unity.com/packages/3d/props/low-poly-3d-icons-pack-lite-295587
 *   **Chest:** https://assetstore.unity.com/packages/3d/props/leathertrunk-295428
 *   **Treasure:** https://assetstore.unity.com/packages/3d/props/medieval-gold-14162
-*   **Past Key:** 
-https://sketchfab.com/3d-models/key-a4aca11a2259462f8735a60eead33962
+*   **Past Key:** https://sketchfab.com/3d-models/key-a4aca11a2259462f8735a60eead33962
